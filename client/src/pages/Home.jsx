@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPost, deletePost, fetchPosts } from "../api/post";
+import { useAuth } from "../context/AuthContext";
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const [form, setForm] = useState({ title: "", content: "" });
   const navigate = useNavigate();
-
+  const { isLoggedIn } = useAuth();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      getPosts();
+    }
+  }, [isLoggedIn]);
   // Load posts
   const getPosts = async () => {
     try {

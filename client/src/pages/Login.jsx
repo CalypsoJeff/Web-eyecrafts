@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
@@ -7,6 +7,10 @@ function Login() {
   const [form, setForm] = useState({ username: "", password: "" });
   const navigate = useNavigate();
   const { saveToken } = useAuth();
+
+  useEffect(()=>{
+    
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();

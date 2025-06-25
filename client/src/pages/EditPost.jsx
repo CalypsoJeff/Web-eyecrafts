@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchPost, updatePost } from "../api/post";
+import { useAuth } from "../context/AuthContext";
 
 function EditPost() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [form, setForm] = useState({ title: "", content: "" });
+
+  const { isLoggedIn } = useAuth();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      getPost();
+    }
+  }, [isLoggedIn]);
 
   // Load post details
   const getPost = async () => {
